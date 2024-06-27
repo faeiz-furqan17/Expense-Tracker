@@ -1,0 +1,29 @@
+
+@use "sass:math";
+.landerHeading{
+	animation: landerAnim 2s ease 0s 1 normal forwards;
+	font-size: 33dvh;
+	
+}
+@keyframes landerAnim {
+	0% {
+		opacity: 0;
+		transform: scale(0.6);
+	}
+
+	100% {
+		opacity: 1;
+		transform: scale(1);
+	}
+}
+
+@media (max-width: 900px) {
+	.landerHeading{
+	  font-size: 10dvh;
+	}
+	.lottie{
+		height: 30dvh;
+	}
+}
+
+
