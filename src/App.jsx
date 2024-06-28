@@ -5,6 +5,7 @@ import Lander from './components/Lander/Lander'
 import Form from './components/Form/Form'
 import SimpleForm from './components/SimpleForm/SimpleForm'
 import StudentDetailsForm from './components/StudentDetailsForm/StudentDetailsForm'
+import Parent from './components/Parent/Parent'
 
 
 
@@ -37,7 +38,9 @@ const  showTheStudentForm=() =>{
 <StudentDetailsForm show={showStudentValue}>
 
 </StudentDetailsForm>
-
+<Parent>
+  
+</Parent>
 
   </div>
   </>

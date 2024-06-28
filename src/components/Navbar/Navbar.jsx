@@ -10,13 +10,14 @@ function Navbar() {
 
    
  }
- useEffect(() =>{
-   if(showForm){
-     removeButton("close")
-   }else{
-     removeButton("Add")
-   }
- },[showForm])
+//  useEffect(() =>{
+//   //  if(showForm){
+//   //    removeButton("close")
+//   //  }else{
+//   //    removeButton("Add")
+//   //  }
+//   console.log("here here")
+//  })
 
   return (
 <>
@@ -25,9 +26,10 @@ function Navbar() {
   <nav>
     <h1>Expense Tracker</h1>
     <button onClick={handleAddClick}>{addButton}</button>
-   <Form showForm = {showForm} onShow={()=>{setShowForm(false)}}>
-
-   </Form>
+{showForm ?<Form onShow={()=>{
+  setShowForm(false)
+  
+}}></Form> :<></>} 
     <ul>
       <li>
 
