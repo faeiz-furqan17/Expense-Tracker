@@ -24,7 +24,7 @@ function Navbar() {
             <ul>
               <li>
                 <button onClick={handleAddClick}>
-                  Add
+                  new form / add expense 
                 </button>
               </li>
               <li>
