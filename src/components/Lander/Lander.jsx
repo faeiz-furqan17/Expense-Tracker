@@ -8,10 +8,10 @@ import animationData from '../../assets/Lottie Json/Animation - 1719397582348.js
 function Lander() {
   return (
     <div style={{marginTop:'5%',display:'flex',flexDirection:'column',alignItems:'center', justifyContent:'center' , height:'auto'}}>
-        <div className={styles.lottie}>
+        {/* <div className={styles.lottie}>
           <Lottie className={styles.lottie} animationData={animationData}  style={{position:'absolute',height:'90dvh'}}/>
           
-        </div>
+        </div> */}
 
       <h1 className={styles.landerHeading} style={{textAlign:'center', fontWeight:'400' }}>
         Expense Tracker
