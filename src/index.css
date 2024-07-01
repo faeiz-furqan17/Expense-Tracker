@@ -2,7 +2,8 @@
   margin: 0;
   padding: 0;
   color: white;
-  gap: 2px
+  gap: 2px;
+  overflow-x: hidden
 
 }
 button{
@@ -15,11 +16,9 @@ html, body{
   background-color: #444;
 }
 nav{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  
+ width: 100%;
 
-  padding: 10px;
 }
 form{
   border: 2px solid #333;
@@ -44,5 +43,9 @@ form{
     background-color: purple;
   }
   
+}
+
+footer{
+  width: 100%;
 }
 
