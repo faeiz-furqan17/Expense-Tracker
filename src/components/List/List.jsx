@@ -4,17 +4,8 @@ function List() {
   const [expenseList, setExpenseList] = useState([]);
   setExpenseList((expenseList) => ({
     ...expenseList,
-    
-
   }));
 
-
-
-
-
-
-
- 
   return <div></div>;
 }
 

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import Navbar from "./components/Navbar/Navbar";
 import Lander from "./components/Lander/Lander";
-import Form from "./components/Form/Form";
+
 import SimpleForm from "./components/SimpleForm/SimpleForm";
 import StudentDetailsForm from "./components/StudentDetailsForm/StudentDetailsForm";
 import Parent from "./components/Parent/Parent";
@@ -19,16 +19,15 @@ function App() {
   return (
     <>
       <div className="main-container">
-        <Navbar></Navbar>
-        <Lander></Lander>
-        <button onClick={showTheForm}>click me to make form visible</button>
-        <SimpleForm show={showValue}></SimpleForm>
+        <Navbar />
+        <Lander />
+        <button onClick={showTheForm} />
+        <SimpleForm show={showValue} />
         <button onClick={showTheStudentForm}>
           click me to make student form visible
         </button>
-        <StudentDetailsForm show={showStudentValue}></StudentDetailsForm>
-        <Parent></Parent>
-        {/* <List></List> */}
+        <StudentDetailsForm show={showStudentValue} />
+        <Parent />
       </div>
     </>
   );

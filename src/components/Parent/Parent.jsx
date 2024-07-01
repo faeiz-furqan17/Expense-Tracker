@@ -26,7 +26,7 @@ function Parent() {
       >
         {showB ? "remove B" : "show B"}
       </button>
-      <div style={{ margin: "50px" }}>
+      <div>
         {showA ? (
           <CounterA
             increamentA={() => {

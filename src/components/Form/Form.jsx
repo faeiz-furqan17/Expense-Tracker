@@ -8,7 +8,7 @@ function Form({ showForm, onShow }) {
   });
 
   useEffect(() => {
-   return () => expenseData;
+    return () => expenseData;
   }, []);
 
   const handleChange = (e) => {
