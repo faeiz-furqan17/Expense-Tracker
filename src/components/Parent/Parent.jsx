@@ -5,16 +5,20 @@ import CounterB from "./CounterB";
 function Parent() {
   const [counterA, setCounterA] = useState(0);
   const [counterB, setCounterB] = useState(0);
+  
+
 
   const [showA, setShowA] = useState(true);
   const [showB, setShowB] = useState(true);
 
   return (
     <div>
-      <h1>Counter A = {counterA}</h1>
-      <button onClick={()=>{setShowA(true)}} >show A</button> <button onClick={()=>{setShowA(false)}}>remove A</button>
-      <h1>Counter B = {counterB}</h1>
-      <button onClick={()=>{setShowB(true)}} >show B</button> <button onClick={()=>{setShowB(false)}}>remove B</button>
+   
+      <button onClick={()=>{setShowA(!showA) }} >
+      {showA?"Remove A":"show A"}
+      </button>
+
+      <button onClick={()=>{setShowB(!showB)}} >{showB?"remove B":"show B"}</button> 
       <div style={{ margin: "50px" }}>
         {showA ? (
           <CounterA
