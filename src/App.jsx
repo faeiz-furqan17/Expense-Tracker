@@ -6,6 +6,8 @@ import Lander from "./components/Lander/Lander";
 import SimpleForm from "./components/SimpleForm/SimpleForm";
 import StudentDetailsForm from "./components/StudentDetailsForm/StudentDetailsForm";
 import Parent from "./components/Parent/Parent";
+import Controlled from "./components/Controlled/Controlled";
+import Uncontrolled from "./components/Uncontrolled/Uncontrolled";
 
 function App() {
   const [showValue, hide] = useState(false);
@@ -28,6 +30,8 @@ function App() {
         </button>
         <StudentDetailsForm show={showStudentValue} />
         <Parent />
+        <Controlled />
+        <Uncontrolled />
       </div>
     </>
   );
