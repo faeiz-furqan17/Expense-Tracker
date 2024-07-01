@@ -5,31 +5,38 @@ import CounterB from "./CounterB";
 function Parent() {
   const [counterA, setCounterA] = useState(0);
   const [counterB, setCounterB] = useState(0);
-  
-
 
   const [showA, setShowA] = useState(true);
   const [showB, setShowB] = useState(true);
 
   return (
     <div>
-   
-      <button onClick={()=>{setShowA(!showA) }} >
-      {showA?"Remove A":"show A"}
+      <button
+        onClick={() => {
+          setShowA(!showA);
+        }}
+      >
+        {showA ? "Remove A" : "show A"}
       </button>
 
-      <button onClick={()=>{setShowB(!showB)}} >{showB?"remove B":"show B"}</button> 
+      <button
+        onClick={() => {
+          setShowB(!showB);
+        }}
+      >
+        {showB ? "remove B" : "show B"}
+      </button>
       <div style={{ margin: "50px" }}>
         {showA ? (
           <CounterA
-            increaseA={() => {
-              setCounterA(counterA + 1);
+            increamentA={() => {
+              setCounterA((previousCounterA) => previousCounterA + 1);
             }}
-            increaseB={() => {
-              setCounterB(counterB + 1);
+            increamentB={() => {
+              setCounterB((previousCounterB) => previousCounterB + 1);
             }}
             valueA={counterA}
-            reset={() => {
+            resetCounter={() => {
               setCounterA(0);
             }}
           />
@@ -39,14 +46,14 @@ function Parent() {
 
         {showB ? (
           <CounterB
-            increaseA={() => {
-              setCounterA(counterA + 1);
+            increamentA={() => {
+              setCounterA((previousCounterA) => previousCounterA + 1);
             }}
-            increaseB={() => {
-              setCounterB(counterB + 1);
+            increamentB={() => {
+              setCounterB((previousCounterB) => previousCounterB + 1);
             }}
             valueB={counterB}
-            reset={() => {
+            resetCounter={() => {
               setCounterB(0);
             }}
           />

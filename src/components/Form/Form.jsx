@@ -8,7 +8,7 @@ function Form({ showForm, onShow }) {
   });
 
   useEffect(() => {
-   return () => console.log("unmounted");
+   return () => expenseData;
   }, []);
 
   const handleChange = (e) => {
