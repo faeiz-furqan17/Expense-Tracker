@@ -14,7 +14,6 @@ function Navbar() {
     } else {
       removeButton("Add");
     }
-    console.log("here here");
   });
 
   return (

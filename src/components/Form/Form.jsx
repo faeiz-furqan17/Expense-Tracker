@@ -1,15 +1,19 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { addExpense } from "../../redux/expenses/expensesSlice";
 
 function Form({ showForm, onShow }) {
   const [expenseData, setExpenseData] = useState({
     name: "",
-    amount: "",
+    amount: 0,
     date: "",
   });
 
   useEffect(() => {
     return () => expenseData;
   }, []);
+
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -23,9 +27,11 @@ function Form({ showForm, onShow }) {
     onShow();
     e.preventDefault();
     console.log(expenseData);
+    dispatch(addExpense(expenseData));
+
     setExpenseData({
       name: "",
-      amount: "",
+      amount: 0,
       date: "",
     });
   };
@@ -45,7 +51,7 @@ function Form({ showForm, onShow }) {
           />
           <label htmlFor="amount">Amount</label>
           <input
-            type="text"
+            type="number"
             name="amount"
             id="amount"
             value={expenseData.amount}
