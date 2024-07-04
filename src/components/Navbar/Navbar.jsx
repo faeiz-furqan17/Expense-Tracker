@@ -1,8 +1,18 @@
+import { Menu, Button, Modal } from "antd";
 import React, { useState, useEffect } from "react";
-import styles from "./Navbar.module.scss";
+
 import Form from "../Form/Form";
+import { Link } from "react-router-dom";
 
 function Navbar() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
   const [showForm, setShowForm] = useState(false);
   const [addButton, removeButton] = useState("Add");
   const handleAddClick = () => {
@@ -14,32 +24,41 @@ function Navbar() {
     } else {
       removeButton("Add");
     }
-    console.log("here here");
   });
-
   return (
-    <>
-      <header>
-        <nav>
-          <h1>Expense Tracker</h1>
-          <button onClick={handleAddClick}>{addButton}</button>
-          {showForm ? (
+    <div>
+      <Menu mode="horizontal" style={{ alignItems: "center" }}>
+        <Menu.Item>
+          <Link to="/">
+            <h1> Expense Tracker</h1>
+          </Link>
+        </Menu.Item>
+
+        <Menu.Item>
+          <Link to="/dashboard">Dashboard</Link>
+        </Menu.Item>
+        <Menu.Item>
+          <Link to="/summary">Summary</Link>
+        </Menu.Item>
+        <Menu.Item>
+          <Button type={showForm ? "submit" : "primary"} onClick={showModal}>
+            {addButton}{" "}
+          </Button>
+          <Modal
+            title="Basic Modal"
+            open={isModalOpen}
+            onCancel={handleCancel}
+            footer={null}
+          >
             <Form
               onShow={() => {
                 setShowForm(false);
               }}
             ></Form>
-          ) : (
-            <></>
-          )}
-          <ul>
-            <li>
-              <button>Dashboard</button>
-            </li>
-          </ul>
-        </nav>
-      </header>
-    </>
+          </Modal>
+        </Menu.Item>
+      </Menu>
+    </div>
   );
 }
 
