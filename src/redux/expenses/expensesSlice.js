@@ -17,9 +17,26 @@ const expensesSlice = createSlice({
         (expense, index) => index !== action.payload
       );
     },
+    editExpense: (state, action) => {
+      const { id, name, amount, date } = action.payload;
+      const updatedExpense = state.expenses.find((expense) => expense.id == id);
+      if (updatedExpense) {
+        updatedExpense.name = name;
+        updatedExpense.amount = Number(amount);
+        updatedExpense.date = date;
+      }
+
+      // const index = state.expenses.findIndex(expense => expense.id === action.payload.id);
+      // if (index !== -1) {
+      //   state.expenses[index] = {
+      //     ...state.expenses[index],
+      //     ...action.payload,
+      //     amount: Number(action.payload.amount),
+      //   }};
+    },
   },
 });
 
-export const { addExpense, removeExpense } = expensesSlice.actions;
+export const { addExpense, removeExpense, editExpense } = expensesSlice.actions;
 
 export default expensesSlice.reducer;

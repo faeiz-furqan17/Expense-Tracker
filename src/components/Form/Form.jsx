@@ -1,13 +1,20 @@
 import React, { useState, useEffect } from "react";
+import { v4 as uuid } from "uuid";
 import { useDispatch } from "react-redux";
-import { addExpense } from "../../redux/expenses/expensesSlice";
+import { addExpense, editExpense } from "../../redux/expenses/expensesSlice";
 
-function Form({ showForm, onShow }) {
-  const [expenseData, setExpenseData] = useState({
-    name: "",
-    amount: 0,
-    date: "",
-  });
+function Form({ showForm, onShow, expense }) {
+  const unique_id = uuid();
+  const [expenseData, setExpenseData] = useState(
+    expense
+      ? {
+          id: expense.id,
+          name: expense.name,
+          amount: expense.amount,
+          date: expense.date,
+        }
+      : { id: unique_id.slice(0, 8), name: "", amount: null, date: "" }
+  );
 
   useEffect(() => {
     return () => expenseData;
@@ -24,14 +31,37 @@ function Form({ showForm, onShow }) {
   };
 
   const handleFormSubmission = (e) => {
+    if (expenseData.date > new Date().toISOString().split("T")[0]) {
+      alert("Date can't be in future");
+      return;
+    }
+    if (expenseData.amount < 1) {
+      alert("Amount can't be less than 1");
+      return;
+    }
+    if (expenseData.name == "") {
+      alert("Name can't be empty");
+      return;
+    }
+    if (expenseData.date == "") {
+      alert("Date can't be empty");
+      return;
+    }
+    if (expenseData.amount == "") {
+      alert("Amount can't be empty");
+      return;
+    }
+
     onShow();
     e.preventDefault();
     console.log(expenseData);
-    dispatch(addExpense(expenseData));
+    if (expense) {
+      dispatch(editExpense(expenseData));
+    } else dispatch(addExpense(expenseData));
 
     setExpenseData({
       name: "",
-      amount: 0,
+      amount: null,
       date: "",
     });
   };
@@ -51,6 +81,7 @@ function Form({ showForm, onShow }) {
           />
           <label htmlFor="amount">Amount</label>
           <input
+            min={1}
             type="number"
             name="amount"
             id="amount"
@@ -64,8 +95,9 @@ function Form({ showForm, onShow }) {
             id="date"
             value={expenseData.date}
             onChange={handleChange}
+            min={new Date().getMonth()}
           />
-          <button type="submit" onClick={handleFormSubmission}>
+          <button type="button" onClick={handleFormSubmission}>
             add expense
           </button>
         </form>
