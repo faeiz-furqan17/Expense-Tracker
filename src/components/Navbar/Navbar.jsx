@@ -1,8 +1,18 @@
+import { Menu, Button, Modal } from "antd";
 import React, { useState, useEffect } from "react";
-import style from "./Navbar.module.scss";
+
 import Form from "../Form/Form";
 import { Link } from "react-router-dom";
+
 function Navbar() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
   const [showForm, setShowForm] = useState(false);
   const [addButton, removeButton] = useState("Add");
   const handleAddClick = () => {
@@ -15,37 +25,40 @@ function Navbar() {
       removeButton("Add");
     }
   });
-
   return (
-    <>
-      <header>
-        <nav>
-          <div className={style.navbar}>
-            <Link to="/">
-              <h1> Expense Tracker</h1>
-            </Link>
-            <button onClick={handleAddClick}>{addButton}</button>
-            {showForm ? (
-              <Form
-                onShow={() => {
-                  setShowForm(false);
-                }}
-              ></Form>
-            ) : (
-              <></>
-            )}
-            <ul>
-              <li>
-                <Link to="/dashboard">Dashboard</Link>
-              </li>
-              <li>
-                <Link to="/summary">sumary</Link>
-              </li>
-            </ul>
-          </div>
-        </nav>
-      </header>
-    </>
+    <div>
+      <Menu mode="horizontal" style={{ alignItems: "center" }}>
+        <Menu.Item>
+          <Link to="/">
+            <h1> Expense Tracker</h1>
+          </Link>
+        </Menu.Item>
+
+        <Menu.Item>
+          <Link to="/dashboard">Dashboard</Link>
+        </Menu.Item>
+        <Menu.Item>
+          <Link to="/summary">Summary</Link>
+        </Menu.Item>
+        <Menu.Item>
+          <Button type={showForm ? "submit" : "primary"} onClick={showModal}>
+            {addButton}{" "}
+          </Button>
+          <Modal
+            title="Basic Modal"
+            open={isModalOpen}
+            onCancel={handleCancel}
+            footer={null}
+          >
+            <Form
+              onShow={() => {
+                setShowForm(false);
+              }}
+            ></Form>
+          </Modal>
+        </Menu.Item>
+      </Menu>
+    </div>
   );
 }
 

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { v4 as uuid } from "uuid";
 import { useDispatch } from "react-redux";
 import { addExpense, editExpense } from "../../redux/expenses/expensesSlice";
-
+import { Input, Button } from "antd";
 function Form({ showForm, onShow, expense }) {
   const unique_id = uuid();
   const [expenseData, setExpenseData] = useState(
@@ -68,42 +68,84 @@ function Form({ showForm, onShow, expense }) {
 
   return (
     <div>
-      <section className="add-expense-section">
-        <form>
-          <h1>Add Expense</h1>
-          <label htmlFor="name">Name</label>
-          <input
-            type="text"
-            name="name"
-            id="name"
-            value={expenseData.name}
-            onChange={handleChange}
-          />
-          <label htmlFor="amount">Amount</label>
-          <input
-            min={1}
-            type="number"
-            name="amount"
-            id="amount"
-            value={expenseData.amount}
-            onChange={handleChange}
-          />
-          <label htmlFor="date">Date</label>
-          <input
-            type="date"
-            name="date"
-            id="date"
-            value={expenseData.date}
-            onChange={handleChange}
-            min={new Date().getMonth()}
-          />
-          <button type="button" onClick={handleFormSubmission}>
-            add expense
-          </button>
-        </form>
-      </section>
+      <label htmlFor="name">Name</label>
+      <Input
+        placeholder="name"
+        name="name"
+        id="name"
+        onChange={handleChange}
+        value={expenseData.name}
+        type="text"
+      />
+      <label htmlFor="amount">Amount</label>
+      <Input
+        placeholder="amount"
+        name="amount"
+        id="amount"
+        onChange={handleChange}
+        value={expenseData.amount}
+        type="number"
+      />
+      <label htmlFor="date">Date</label>
+      <Input
+        placeholder="date"
+        name="date"
+        id="date"
+        onChange={handleChange}
+        value={expenseData.date}
+        type="date"
+      />
+      <Button
+        type="primary"
+        onClick={handleFormSubmission}
+        style={{ marginTop: "5px" }}
+      >
+        {expense ? "Edit" : "Add"}
+      </Button>
     </div>
   );
 }
 
 export default Form;
+
+//   return (
+//     <div>
+//       <section className="add-expense-section">
+//         <form>
+//           <h1>Add Expense</h1>
+//           <label htmlFor="name">Name</label>
+//           <input
+//             type="text"
+//             name="name"
+//             id="name"
+//             value={expenseData.name}
+//             onChange={handleChange}
+//           />
+//           <label htmlFor="amount">Amount</label>
+//           <input
+//             min={1}
+//             type="number"
+//             name="amount"
+//             id="amount"
+//             value={expenseData.amount}
+//             onChange={handleChange}
+//           />
+//           <label htmlFor="date">Date</label>
+//           <input
+//             type="date"
+//             name="date"
+//             id="date"
+//             value={expenseData.date}
+//             onChange={handleChange}
+//             min={new Date().getMonth()}
+//           />
+//           <button type="button" onClick={handleFormSubmission}>
+//             add expense
+//           </button>
+//         </form>
+//       </section>
+//     </div>
+//   );
+// }
+
+// export default Form;
