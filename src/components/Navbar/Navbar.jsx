@@ -1,45 +1,72 @@
+import { Menu, Button, Modal } from "antd";
 import React, { useState, useEffect } from "react";
-import styles from "./Navbar.module.scss";
+import { Link } from "react-router-dom";
 import Form from "../Form/Form";
+import style from "./Navbar.module.scss";
 
 function Navbar() {
-  const [showForm, setShowForm] = useState(false);
-  const [addButton, removeButton] = useState("Add");
-  const handleAddClick = () => {
-    setShowForm(!showForm);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const showModal = () => {
+    setIsModalOpen(true);
   };
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
+  const [addButton, setAddButton] = useState("Add");
+
   useEffect(() => {
-    if (showForm) {
-      removeButton("close");
+    if (isModalOpen) {
+      setAddButton("Close");
     } else {
-      removeButton("Add");
+      setAddButton("Add");
     }
-    console.log("here here");
   });
 
   return (
-    <>
-      <header>
-        <nav>
-          <h1>Expense Tracker</h1>
-          <button onClick={handleAddClick}>{addButton}</button>
-          {showForm ? (
-            <Form
-              onShow={() => {
-                setShowForm(false);
-              }}
-            ></Form>
-          ) : (
-            <></>
-          )}
-          <ul>
-            <li>
-              <button>Dashboard</button>
-            </li>
-          </ul>
-        </nav>
-      </header>
-    </>
+    <div className={style.navBar}>
+      <Menu
+        style={{ alignItems: "center" }}
+        mode="horizontal"
+        items={[
+          {
+            key: "home",
+            label: (
+              <Link to="/">
+                <h2> Expense Tracker</h2>
+              </Link>
+            ),
+          },
+          {
+            key: "dashboard",
+            label: <Link to="/dashboard">Dashboard</Link>,
+          },
+          {
+            key: "summary",
+            label: <Link to="/summary">Summary</Link>,
+          },
+          {
+            key: "add",
+            label: (
+              <Button
+                type={isModalOpen ? "submit" : "primary"}
+                onClick={showModal}
+              >
+                {addButton}
+              </Button>
+            ),
+          },
+        ]}
+      />
+      <Modal
+        title="Basic Modal"
+        open={isModalOpen}
+        onCancel={handleCancel}
+        footer={null}
+      >
+        <Form isModalOpen={() => setIsModalOpen(false)} />
+      </Modal>
+    </div>
   );
 }
 
