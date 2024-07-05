@@ -1,7 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { expenses } from "../../Data/expenseData/expenseData";
+
 const intialState = {
-  expenses: [],
+  expenses: expenses,
 };
+expenses.sort((a, b) => new Date(a.date) - new Date(b.date));
+
 const expensesSlice = createSlice({
   name: "expenses",
   initialState: intialState,
@@ -11,6 +15,7 @@ const expensesSlice = createSlice({
         ...action.payload,
         amount: Number(action.payload.amount),
       });
+      state.expenses.sort((a, b) => new Date(a.date) - new Date(b.date));
     },
     removeExpense: (state, action) => {
       state.expenses = state.expenses.filter(
@@ -33,6 +38,7 @@ const expensesSlice = createSlice({
       //     ...action.payload,
       //     amount: Number(action.payload.amount),
       //   }};
+      state.expenses.sort((a, b) => new Date(a.date) - new Date(b.date));
     },
   },
 });

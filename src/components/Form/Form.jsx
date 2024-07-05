@@ -3,7 +3,7 @@ import { v4 as uuid } from "uuid";
 import { useDispatch } from "react-redux";
 import { addExpense, editExpense } from "../../redux/expenses/expensesSlice";
 import { Input, Button } from "antd";
-function Form({ showForm, onShow, expense }) {
+function Form({ isModalOpen, expense }) {
   const unique_id = uuid();
   const [expenseData, setExpenseData] = useState(
     expense
@@ -52,8 +52,9 @@ function Form({ showForm, onShow, expense }) {
       return;
     }
 
-    onShow();
     e.preventDefault();
+    isModalOpen();
+
     console.log(expenseData);
     if (expense) {
       dispatch(editExpense(expenseData));
@@ -107,45 +108,3 @@ function Form({ showForm, onShow, expense }) {
 }
 
 export default Form;
-
-//   return (
-//     <div>
-//       <section className="add-expense-section">
-//         <form>
-//           <h1>Add Expense</h1>
-//           <label htmlFor="name">Name</label>
-//           <input
-//             type="text"
-//             name="name"
-//             id="name"
-//             value={expenseData.name}
-//             onChange={handleChange}
-//           />
-//           <label htmlFor="amount">Amount</label>
-//           <input
-//             min={1}
-//             type="number"
-//             name="amount"
-//             id="amount"
-//             value={expenseData.amount}
-//             onChange={handleChange}
-//           />
-//           <label htmlFor="date">Date</label>
-//           <input
-//             type="date"
-//             name="date"
-//             id="date"
-//             value={expenseData.date}
-//             onChange={handleChange}
-//             min={new Date().getMonth()}
-//           />
-//           <button type="button" onClick={handleFormSubmission}>
-//             add expense
-//           </button>
-//         </form>
-//       </section>
-//     </div>
-//   );
-// }
-
-// export default Form;

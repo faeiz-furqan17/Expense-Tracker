@@ -23,7 +23,6 @@ function App() {
       <Routes>
         <Route path="/login" element={<Login login={handleLogin} />}></Route>
         <Route path="/" element={<Layout />}>
-          <Route index element={<SimpleForm />} />
           <Route element={<ProtectedRoutes user={isAuthenticated} />}>
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="summary" element={<Summary />} />
