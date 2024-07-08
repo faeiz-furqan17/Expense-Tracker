@@ -1,8 +1,11 @@
 import React, { useState } from "react";
-
 import { useNavigate } from "react-router-dom";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import { LoginRounded } from "@mui/icons-material";
+import style from "./Login.module.scss";
 
-function login({ login }) {
+function Login({ login }) {
   const navigate = useNavigate();
   const [loginData, setLoginData] = useState({
     username: "",
@@ -11,7 +14,7 @@ function login({ login }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (loginData.username && loginData.password == "admin") {
+    if (loginData.username && loginData.password === "admin") {
       login();
       navigate("/dashboard");
       setLoginData({
@@ -20,6 +23,7 @@ function login({ login }) {
       });
     }
   };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setLoginData({
@@ -29,26 +33,40 @@ function login({ login }) {
   };
 
   return (
-    <div>
+    <div className={style.mainContainer}>
       <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="username"
-          value={loginData.username}
-          onChange={handleChange}
-          name="username"
-        />
-        <input
-          type="text"
-          placeholder="password"
-          value={loginData.password}
-          onChange={handleChange}
-          name="password"
-        />
-        <button type="submit">Login</button>
+        <div>
+          <TextField
+            id="username"
+            name="username"
+            label="Username"
+            value={loginData.username}
+            onChange={handleChange}
+            variant="standard"
+          />
+        </div>
+        <div>
+          <TextField
+            id="password"
+            name="password"
+            type="password"
+            label="Password"
+            value={loginData.password}
+            onChange={handleChange}
+            variant="standard"
+          />
+        </div>
+        <div className={style.loginbtn}>
+          <Button variant="outlined" startIcon={<LoginRounded />} type="submit">
+            Login
+          </Button>
+        </div>
+        <p>
+          Dont have an account? <a href="/signup">Signup!</a>
+        </p>
       </form>
     </div>
   );
 }
 
-export default login;
+export default Login;

@@ -26,7 +26,6 @@ function Navbar() {
   return (
     <div className={style.navBar}>
       <Menu
-        style={{ alignItems: "center" }}
         mode="horizontal"
         items={[
           {

@@ -9,6 +9,10 @@ import Dashboard from "./components/Dashboard/Dashboard";
 import Summary from "./components/Summary/Summary";
 import Login from "./components/Login/Login";
 import ProtectedRoutes from "./utils/ProtectedRoutes";
+import SplashScreen from "./components/SplashScreen/SplashScreen";
+
+import ROUTES from "./App Paths/routes";
+import SignUp from "./components/SignUp/SignUp";
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [showValue, hide] = useState(false);
@@ -21,13 +25,15 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/login" element={<Login login={handleLogin} />}></Route>
-        <Route path="/" element={<Layout />}>
+        <Route path={ROUTES.SPLASH_SCREEN} element={<SplashScreen />}></Route>
+        <Route path={ROUTES.HOME} element={<Layout />}>
           <Route element={<ProtectedRoutes user={isAuthenticated} />}>
-            <Route path="dashboard" element={<Dashboard />} />
-            <Route path="summary" element={<Summary />} />
+            <Route path={ROUTES.DASHBOARD} element={<Dashboard />} />
+            <Route path={ROUTES.SUMMARY} element={<Summary />} />
           </Route>
         </Route>
+        <Route path={ROUTES.LOGIN} element={<Login login={handleLogin} />} />
+        <Route path={ROUTES.SIGNUP} element={<SignUp />} />
       </Routes>
     </Router>
   );
