@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { removeExpense } from "../../redux/expenses/expensesSlice";
 import Form from "../Form/Form";
@@ -7,7 +7,36 @@ import style from "./List.module.scss";
 import Chart from "../Chart/Chart";
 import AnimatedNumber from "animated-number-react";
 
+import {
+  collection,
+  addDoc,
+  updateDoc,
+  doc,
+  deleteDoc,
+  getDocs,
+} from "firebase/firestore";
+import { db } from "../../../firebase";
+
 function List() {
+  const getDataFromFirebase = async () => {
+    const expenseFirebase = await getDocs(collection(db, "expenses"));
+
+    expenseFirebase.forEach((doc) => {
+      console.log(doc.id, "=>", doc.data());
+    });
+  };
+  const deleteDataFromFirebase = async () => {
+    const expenseFirebase = await getDocs(collection(db, "expenses"));
+
+    expenseFirebase.forEach(async (doc) => {
+      await deleteDoc(doc.ref);
+    });
+    // try {
+    //   await deleteDoc(doc(db, "expenses", ));
+    // } catch (error) {
+    //   console.error("Error deleting document: ", error);
+    // }
+  };
   const expenseList = useSelector((state) => state.expenses.expenses);
 
   const [editExpense, setEditExpense] = useState(null);
@@ -24,6 +53,10 @@ function List() {
     setEditExpense(expense);
     showModal();
   };
+  useEffect((state) => {
+    // getDataFromFirebase();
+    deleteDataFromFirebase();
+  }, []);
 
   const columns = [
     {

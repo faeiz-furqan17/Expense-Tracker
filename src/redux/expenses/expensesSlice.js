@@ -1,5 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { expenses } from "../../Data/expenseData/expenseData";
+import {
+  collection,
+  addDoc,
+  updateDoc,
+  doc,
+  deleteDoc,
+} from "firebase/firestore";
+import { db } from "../../../firebase";
 
 const intialState = {
   expenses: expenses,
