@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { expenses } from "../../Data/expenseData/expenseData";
 import {
   collection,
@@ -13,6 +13,21 @@ const intialState = {
   expenses: expenses,
 };
 expenses.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+//i am writing a asyncThunk
+
+export const showExpenses = createAsyncThunk(
+  "showExpenses",
+  async (rejectWithValue) => {
+    const response = await fetch("http://localhost:3000/api/expenses");
+    try {
+      const result = await response.json;
+      return result;
+    } catch (error) {
+      rejectWithValue(error);
+    }
+  }
+);
 
 const expensesSlice = createSlice({
   name: "expenses",
@@ -48,6 +63,14 @@ const expensesSlice = createSlice({
       //   }};
       state.expenses.sort((a, b) => new Date(a.date) - new Date(b.date));
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(showExpenses.fulfilled, (state, action) => {
+      state.expenses = action.payload;
+    }),
+      builder.addCase(showExpenses.rejected, (state, action) => {
+        console.log("Error fetching expenses: ", action.error.message);
+      });
   },
 });
 

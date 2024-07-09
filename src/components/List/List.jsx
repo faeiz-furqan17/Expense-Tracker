@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { removeExpense } from "../../redux/expenses/expensesSlice";
+import {
+  removeExpense,
+  showExpenses,
+} from "../../redux/expenses/expensesSlice";
 import Form from "../Form/Form";
 import { Modal, Table, Button } from "antd";
 import style from "./List.module.scss";
 import Chart from "../Chart/Chart";
 import AnimatedNumber from "animated-number-react";
+import { fetchProducts } from "../../redux/products/productsSlice";
 
 import {
   collection,
@@ -18,11 +22,25 @@ import {
 import { db } from "../../../firebase";
 
 function List() {
+  const expenseList = useSelector((state) => state.expenses.expenses);
+
   const getDataFromFirebase = async () => {
     const expenseFirebase = await getDocs(collection(db, "expenses"));
+    expenseFirebase;
 
     expenseFirebase.forEach((doc) => {
-      console.log(doc.id, "=>", doc.data());
+      const response = doc.data();
+      debugger;
+    });
+  };
+  const addDataToFirebase = async () => {
+    const data = expenseList;
+    data.forEach(async (data) => {
+      try {
+        await addDoc(collection(db, "expenses"), data);
+      } catch (error) {
+        console.error("Error adding document: ", error);
+      }
     });
   };
   const deleteDataFromFirebase = async () => {
@@ -37,7 +55,6 @@ function List() {
     //   console.error("Error deleting document: ", error);
     // }
   };
-  const expenseList = useSelector((state) => state.expenses.expenses);
 
   const [editExpense, setEditExpense] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -54,8 +71,11 @@ function List() {
     showModal();
   };
   useEffect((state) => {
+    // addDataToFirebase();
     // getDataFromFirebase();
-    deleteDataFromFirebase();
+    // deleteDataFromFirebase();
+    // fetchProducts();
+    console.log(dispatch(showExpenses()));
   }, []);
 
   const columns = [
