@@ -9,6 +9,7 @@ import {
   doc,
   addDoc,
   updateDoc,
+  getDoc,
 } from "firebase/firestore";
 import { db } from "../firebase.js";
 const router = express.Router();
@@ -23,6 +24,22 @@ router.get("/expenses", async function (req, res) {
   });
 
   res.json(expenses);
+});
+router.get("/expense/:id", async function (req, res) {
+  const { id } = req.params;
+  const docRef = doc(db, "expenses", id);
+  const docSnap = await getDoc(docRef);
+  if (!docSnap.exists) {
+    return res.status(404).json({ message: "Document not found" });
+  }
+  const expense = docSnap.data();
+  // expense.id = docSnap.id;
+  res.json({
+    id: expense.id,
+    name: expense.name,
+    amount: expense.amount,
+    date: expense.date,
+  });
 });
 
 //delete a single expense
@@ -43,8 +60,16 @@ router.post("/expenses/add", async (req, res) => {
   console.log("i am the req body =>", data);
 
   try {
+    debugger;
     const result = await addDoc(collection(db, "expenses"), data);
-    res.json({ message: "Document added successfully", result });
+
+    const docRef = doc(db, "expenses", result.id);
+    const docSnap = await getDoc(docRef);
+
+    res.json({
+      message: "Document added successfully",
+      result: docSnap.data(),
+    });
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: error });
@@ -60,7 +85,14 @@ router.put("/expenses/update/:id", async (req, res) => {
     const expenseRef = doc(db, "expenses", id);
     // console.log("previous expense  =>", expenseRef);
     const result = await updateDoc(expenseRef, data);
-    res.json({ message: "Document updated successfully", result });
+
+    const docRef = doc(db, "expenses", id);
+    const docSnap = await getDoc(docRef);
+
+    res.json({
+      message: "Document updated successfully",
+      result: docSnap.data(),
+    });
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: error });
