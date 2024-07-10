@@ -1,26 +1,27 @@
 import React, { useState, useEffect } from "react";
 import { v4 as uuid } from "uuid";
-import { useDispatch } from "react-redux";
-import { addExpense, editExpense } from "../../redux/expenses/expensesSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addExpenses,
+  updateExpenses,
+  getSingleExpense,
+} from "../../redux/expenses/expensesSlice";
+
 import { Input, Button } from "antd";
-function Form({ isModalOpen, expense }) {
-  const unique_id = uuid();
-  const [expenseData, setExpenseData] = useState(
-    expense
-      ? {
-          id: expense.id,
-          name: expense.name,
-          amount: expense.amount,
-          date: expense.date,
-        }
-      : { id: unique_id.slice(0, 8), name: "", amount: null, date: "" }
-  );
+function Form({ isModalOpen, id }) {
+  const dispatch = useDispatch();
+
+  const expenseList = useSelector((state) => state.expenses.singleExpense);
+
+  const [expenseData, setExpenseData] = useState([expenseList]);
 
   useEffect(() => {
-    return () => expenseData;
-  }, []);
+    dispatch(getSingleExpense(id));
+  }, [id]);
 
-  const dispatch = useDispatch();
+  useEffect(() => {
+    setExpenseData(expenseList);
+  }, [expenseList]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -56,9 +57,11 @@ function Form({ isModalOpen, expense }) {
     isModalOpen();
 
     console.log(expenseData);
-    if (expense) {
-      dispatch(editExpense(expenseData));
-    } else dispatch(addExpense(expenseData));
+    if (id) {
+      dispatch(updateExpenses(expenseData));
+    } else {
+      dispatch(addExpenses(expenseData));
+    }
 
     setExpenseData({
       name: "",
@@ -101,7 +104,7 @@ function Form({ isModalOpen, expense }) {
         onClick={handleFormSubmission}
         style={{ marginTop: "5px" }}
       >
-        {expense ? "Edit" : "Add"}
+        {id ? "Edit" : "Add"}
       </Button>
     </div>
   );

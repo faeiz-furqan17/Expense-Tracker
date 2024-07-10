@@ -18,6 +18,7 @@
     "@reduxjs/toolkit": "^2.2.6",
     "animated-number-react": "^0.1.2",
     "antd": "^5.19.0",
+    "axios": "^1.7.2",
     "express": "^4.19.2",
     "firebase": "^10.12.3",
     "lottie-react": "^2.4.0",

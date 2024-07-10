@@ -1,37 +1,25 @@
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import AnimatedNumber from "animated-number-react";
+import { Button, Modal, Table } from "antd";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
-  removeExpense,
+  deleteExpenses,
   showExpenses,
 } from "../../redux/expenses/expensesSlice";
-import Form from "../Form/Form";
-import { Modal, Table, Button } from "antd";
-import style from "./List.module.scss";
 import Chart from "../Chart/Chart";
-import AnimatedNumber from "animated-number-react";
+import Form from "../Form/Form";
+import style from "./List.module.scss";
 // import { fetchProducts } from "../../redux/products/productsSlice";
-
-import {
-  collection,
-  addDoc,
-  updateDoc,
-  doc,
-  deleteDoc,
-  getDocs,
-  doc,
-} from "firebase/firestore";
-import { db } from "../../../firebase";
 
 function List() {
   const expenseList = useSelector((state) => state.expenses.expenses);
-
   // const getDataFromFirebase = async () => {
   //   const expenseFirebase = await getDocs(collection(db, "expenses"));
   //   expenseFirebase;
 
   //   expenseFirebase.forEach((doc) => {
   //     const response = doc.data();
-  //     debugger;
+
   //   });
   // };
   // const addDataToFirebase = async () => {
@@ -58,6 +46,7 @@ function List() {
   // };
 
   const [editExpense, setEditExpense] = useState(null);
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const dispatch = useDispatch();
 
@@ -76,7 +65,9 @@ function List() {
     // getDataFromFirebase();
     // deleteDataFromFirebase();
     // fetchProducts();
-    console.log(JSON.stringify(dispatch(showExpenses())));
+    dispatch(showExpenses());
+
+    console.log(expenseList);
   }, []);
 
   const columns = [
@@ -119,7 +110,7 @@ function List() {
       dataIndex: "amount",
       key: "amount",
       sorter: (a, b) => a.amount - b.amount,
-      render: (amount) => amount.toFixed(2),
+      render: (amount) => amount,
     },
     {
       title: "Date",
@@ -134,11 +125,18 @@ function List() {
         <span>
           <Button
             style={{ margin: "5px" }}
-            onClick={() => handleEditClick(record)}
+            onClick={() => {
+              handleEditClick(record.id);
+            }}
           >
             Edit
           </Button>
-          <Button danger onClick={() => dispatch(removeExpense(record.id))}>
+          <Button
+            danger
+            onClick={() => {
+              dispatch(deleteExpenses(record.id));
+            }}
+          >
             Delete
           </Button>
         </span>
@@ -147,7 +145,7 @@ function List() {
   ];
 
   const data = expenseList.map((expense) => ({
-    // key: expense.id,
+    key: expense.id,
     ...expense,
   }));
 
@@ -196,7 +194,7 @@ function List() {
         onCancel={handleCancel}
         footer={null}
       >
-        <Form expense={editExpense} isModalOpen={() => setIsModalOpen(false)} />
+        <Form id={editExpense} isModalOpen={() => setIsModalOpen(false)} />
       </Modal>
     </div>
   );
