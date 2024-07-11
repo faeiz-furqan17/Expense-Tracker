@@ -6,8 +6,11 @@ import {
   updateExpenses,
   getSingleExpense,
 } from "../../redux/expenses/expensesSlice";
-
-import { Input, Button } from "antd";
+import { Input, TextField, Button } from "@mui/material";
+import styles from "./Form.module.scss";
+import FormControl from "@mui/material/FormControl";
+import FormLabel from "@mui/material/FormLabel";
+import FormHelperText from "@mui/material/FormHelperText";
 function Form({ isModalOpen, id }) {
   const dispatch = useDispatch();
 
@@ -16,11 +19,11 @@ function Form({ isModalOpen, id }) {
   const [expenseData, setExpenseData] = useState([expenseList]);
 
   useEffect(() => {
-    dispatch(getSingleExpense(id));
+    id ? dispatch(getSingleExpense(id)) : {};
   }, [id]);
 
   useEffect(() => {
-    setExpenseData(expenseList);
+    expenseList ? setExpenseData(expenseList) : {};
   }, [expenseList]);
 
   const handleChange = (e) => {
@@ -32,6 +35,7 @@ function Form({ isModalOpen, id }) {
   };
 
   const handleFormSubmission = (e) => {
+    debugger;
     if (expenseData.date > new Date().toISOString().split("T")[0]) {
       alert("Date can't be in future");
       return;
@@ -44,11 +48,11 @@ function Form({ isModalOpen, id }) {
       alert("Name can't be empty");
       return;
     }
-    if (expenseData.date == "") {
+    if (expenseData.date == undefined) {
       alert("Date can't be empty");
       return;
     }
-    if (expenseData.amount == "") {
+    if (expenseData.amount == undefined) {
       alert("Amount can't be empty");
       return;
     }
@@ -57,6 +61,7 @@ function Form({ isModalOpen, id }) {
     isModalOpen();
 
     console.log(expenseData);
+    debugger;
     if (id) {
       dispatch(updateExpenses(expenseData));
     } else {
@@ -71,8 +76,8 @@ function Form({ isModalOpen, id }) {
   };
 
   return (
-    <div>
-      <label htmlFor="name">Name</label>
+    <div className={styles.formContainer}>
+      {/* <label htmlFor="name">Name</label>
       <Input
         placeholder="name"
         name="name"
@@ -105,7 +110,75 @@ function Form({ isModalOpen, id }) {
         style={{ marginTop: "5px" }}
       >
         {id ? "Edit" : "Add"}
-      </Button>
+      </Button> */}
+      <TextField
+        focused
+        id="items"
+        label="items"
+        name="name"
+        value={expenseData.name}
+        onChange={handleChange}
+        variant="standard"
+        color="secondary"
+        placeholder="Enter the item"
+        fullWidth
+      />
+      <TextField
+        focused
+        id="amount"
+        label="items"
+        name="amount"
+        value={expenseData.amount}
+        onChange={handleChange}
+        variant="standard"
+        color="secondary"
+        type="number"
+        fullWidth
+        placeholder="Enter the amount"
+      />
+      <TextField
+        focused
+        type="date"
+        id="items"
+        label="items"
+        name="date"
+        value={expenseData.date}
+        onChange={handleChange}
+        variant="standard"
+        color="secondary"
+        fullWidth
+      />
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "flex-end",
+          marginTop: "10px",
+        }}
+      >
+        <Button
+          varient="standard"
+          onClick={() => {
+            isModalOpen();
+          }}
+        >
+          close
+        </Button>
+        <Button
+          variant="text"
+          onClick={() => {
+            setExpenseData({
+              name: "",
+              amount: {},
+              date: "",
+            });
+          }}
+        >
+          reset
+        </Button>
+        <Button variant="contained" onClick={handleFormSubmission}>
+          {id ? "Edit" : "Add"}
+        </Button>
+      </div>
     </div>
   );
 }

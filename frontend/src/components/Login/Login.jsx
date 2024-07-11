@@ -3,7 +3,9 @@ import { useNavigate } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { LoginRounded } from "@mui/icons-material";
-import style from "./Login.module.scss";
+import styles from "./Login.module.scss";
+
+import AccountCircleTwoToneIcon from "@mui/icons-material/AccountCircleTwoTone";
 
 function Login({ login }) {
   const navigate = useNavigate();
@@ -33,10 +35,16 @@ function Login({ login }) {
   };
 
   return (
-    <div className={style.mainContainer}>
+    <div className={styles.mainContainer}>
+      <AccountCircleTwoToneIcon
+        sx={{
+          fontSize: "400px",
+        }}
+      />
       <form onSubmit={handleSubmit}>
         <div>
           <TextField
+            sx={{ width: "calc(2em * 10)" }}
             id="username"
             name="username"
             label="Username"
@@ -47,6 +55,7 @@ function Login({ login }) {
         </div>
         <div>
           <TextField
+            sx={{ width: "calc(2em * 10)" }}
             id="password"
             name="password"
             type="password"
@@ -56,8 +65,13 @@ function Login({ login }) {
             variant="standard"
           />
         </div>
-        <div className={style.loginbtn}>
-          <Button variant="outlined" startIcon={<LoginRounded />} type="submit">
+        <div>
+          <Button
+            className={styles.loginbtn}
+            variant="contained"
+            startIcon={<LoginRounded />}
+            type="submit"
+          >
             Login
           </Button>
         </div>

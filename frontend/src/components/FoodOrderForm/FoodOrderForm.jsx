@@ -18,14 +18,11 @@ function FoodOrderForm() {
     setOrder({ ...order, [e.target.name]: e.target.value });
   };
   const addOrder = async () => {
-    debugger;
     const data = order;
-    debugger;
+
     try {
       const res = await addDoc(collection(db, "order"), data);
-      debugger;
     } catch (error) {
-      debugger;
       console.log(error);
     }
   };
@@ -78,7 +75,6 @@ function FoodOrderForm() {
       <button
         type="button"
         onClick={() => {
-          debugger;
           addOrder();
         }}
       >

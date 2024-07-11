@@ -76,12 +76,11 @@ const expensesSlice = createSlice({
       state.loading = true;
     });
     builder.addCase(addExpenses.fulfilled, (state, action) => {
-      debugger;
       state.loading = false;
       state.expenses.push({
         ...action.payload.data,
       });
-      debugger;
+
       state.expenses.sort((a, b) => new Date(a.date) - new Date(b.date));
     });
     builder.addCase(addExpenses.rejected, (state, action) => {
@@ -93,11 +92,10 @@ const expensesSlice = createSlice({
       state.loading = true;
     });
     builder.addCase(updateExpenses.fulfilled, (state, action) => {
-      debugger;
       state.loading = false;
       const expenseid = action.meta.arg.id;
       const updatedExpense = action.meta.arg;
-      debugger;
+
       if (expenseid) {
         const updatedIndex = state.expenses.findIndex(
           (element) => element.id === expenseid
@@ -106,7 +104,7 @@ const expensesSlice = createSlice({
           state.expenses[updatedIndex] = updatedExpense;
         }
       }
-      debugger;
+
       state.expenses.sort((a, b) => new Date(a.date) - new Date(b.date));
     });
     builder.addCase(updateExpenses.rejected, (state, action) => {
@@ -115,16 +113,13 @@ const expensesSlice = createSlice({
       console.log("Error updating expense: ", action.error.message);
     });
     builder.addCase(getSingleExpense.pending, (state) => {
-      debugger;
       state.loading = true;
     });
     builder.addCase(getSingleExpense.fulfilled, (state, action) => {
-      debugger;
       state.loading = false;
       state.singleExpense = action.payload;
     });
     builder.addCase(getSingleExpense.rejected, (state, action) => {
-      debugger;
       state.loading = false;
       state.error = action.error.message;
       console.log("Error fetching single expense: ", action.error.message);

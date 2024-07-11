@@ -1,6 +1,6 @@
 import AnimatedNumber from "animated-number-react";
 import { Button, Modal, Table } from "antd";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   deleteExpenses,
@@ -49,6 +49,8 @@ function List() {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const dispatch = useDispatch();
+  const count = useRef(10);
+  const abortControllerRef = useRef(null);
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -65,10 +67,20 @@ function List() {
     // getDataFromFirebase();
     // deleteDataFromFirebase();
     // fetchProducts();
-    dispatch(showExpenses());
-
-    console.log(expenseList);
   }, []);
+
+  setTimeout(() => {
+    if (count.current > 0) {
+      if (abortControllerRef?.current) {
+        abortControllerRef.current.abort();
+      }
+      abortControllerRef.current = new AbortController();
+      const signal = abortControllerRef.current?.signal;
+      debugger;
+      count.current = count.current - 1;
+      dispatch(showExpenses(signal));
+    }
+  }, 0);
 
   const columns = [
     {

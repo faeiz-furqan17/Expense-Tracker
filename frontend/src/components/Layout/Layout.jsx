@@ -10,7 +10,7 @@ function Layout() {
   return (
     <>
       <Navbar />
-      <FoodOrderForm />
+
       <List />
 
       <Outlet />
