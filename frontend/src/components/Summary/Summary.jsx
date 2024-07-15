@@ -1,9 +1,10 @@
 import React from "react";
+import List from "../List/List";
 
 function Summary() {
   return (
     <div>
-      <h1>i am summary</h1>
+      <List />
     </div>
   );
 }

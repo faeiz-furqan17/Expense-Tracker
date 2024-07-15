@@ -1,3 +1,6 @@
+
+$text-COLOR: #d7e360;
+
 .mainContainer {
     display: flex;
     flex-direction: column;
@@ -9,7 +12,7 @@
 
 
 
-    background: radial-gradient(#00ffb3 0%, #006f9e 100%);
+   
 
 
 
@@ -27,7 +30,7 @@ h1{
 
     label {
          margin: 10px;
-        color: darkgreen !important;
+        color: $text-COLOR;
         font-size: medium;
     }
 

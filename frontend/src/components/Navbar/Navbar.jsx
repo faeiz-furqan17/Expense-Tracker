@@ -60,7 +60,12 @@ function Navbar() {
             >
               summary
             </Button>
-            <Button onClick={showModal} variant="outlined">
+            <Button
+              onClick={() => {
+                window.location.href = "/dashboard";
+              }}
+              variant="outlined"
+            >
               dashboard
             </Button>
           </div>
@@ -78,7 +83,6 @@ function Navbar() {
           transform: "translate(-50%, -50%)",
           width: 400,
 
-          boxShadow: 24,
           // backdropFilter: "blur(5px)",
           // backgroundColor: "white",
 

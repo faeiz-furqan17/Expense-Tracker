@@ -15,27 +15,35 @@ function Form({ isModalOpen, id }) {
   const dispatch = useDispatch();
 
   const expenseList = useSelector((state) => state.expenses.singleExpense);
+  // const singleExpenseList = useSelector((state) => state.expenses.singleExpense);
 
-  const [expenseData, setExpenseData] = useState([expenseList]);
-
+  const [expenseData, setExpenseData] = useState([]);
   useEffect(() => {
+    debugger;
     id ? dispatch(getSingleExpense(id)) : {};
-  }, [id]);
+  }, [isModalOpen]);
 
   useEffect(() => {
-    expenseList ? setExpenseData(expenseList) : {};
+    debugger;
+    id
+      ? setExpenseData({
+          id: id,
+          name: expenseList.name,
+          amount: Number(expenseList.amount),
+          date: expenseList.date,
+        })
+      : {};
   }, [expenseList]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setExpenseData({
       ...expenseData,
-      [name]: value,
+      [name]: name === "amount" ? Number(value) : value,
     });
   };
 
   const handleFormSubmission = (e) => {
-    debugger;
     if (expenseData.date > new Date().toISOString().split("T")[0]) {
       alert("Date can't be in future");
       return;
@@ -61,8 +69,8 @@ function Form({ isModalOpen, id }) {
     isModalOpen();
 
     console.log(expenseData);
-    debugger;
     if (id) {
+      debugger;
       dispatch(updateExpenses(expenseData));
     } else {
       dispatch(addExpenses(expenseData));
@@ -132,7 +140,7 @@ function Form({ isModalOpen, id }) {
         onChange={handleChange}
         variant="standard"
         color="secondary"
-        type="number"
+        type="currency"
         fullWidth
         placeholder="Enter the amount"
       />

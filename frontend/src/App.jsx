@@ -13,6 +13,7 @@ import SplashScreen from "./components/SplashScreen/SplashScreen";
 
 import ROUTES from "./App Paths/routes";
 import SignUp from "./components/SignUp/SignUp";
+import Lander from "./components/Lander/Lander";
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [showValue, hide] = useState(false);
@@ -27,10 +28,12 @@ function App() {
       <Routes>
         <Route path={ROUTES.SPLASH_SCREEN} element={<SplashScreen />}></Route>
         <Route path={ROUTES.HOME} element={<Layout />}>
+          <Route path={ROUTES.HOME} element={<Lander />} />
+
           <Route element={<ProtectedRoutes user={isAuthenticated} />}>
-            <Route path={ROUTES.DASHBOARD} element={<Dashboard />} />
             <Route path={ROUTES.SUMMARY} element={<Summary />} />
           </Route>
+          <Route path={ROUTES.DASHBOARD} element={<Dashboard />} />
         </Route>
         <Route path={ROUTES.LOGIN} element={<Login login={handleLogin} />} />
         <Route path={ROUTES.SIGNUP} element={<SignUp />} />

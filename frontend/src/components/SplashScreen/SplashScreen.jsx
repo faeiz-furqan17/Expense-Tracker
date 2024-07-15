@@ -1,6 +1,6 @@
 import React from "react";
-import Login from "../Login/Login";
 import { useNavigate } from "react-router-dom";
+import style from "./SplashScreen.module.scss";
 
 function SplashScreen() {
   const currencySymbols = [
@@ -90,104 +90,22 @@ function SplashScreen() {
     "ك.م",
   ];
   const navigate = useNavigate();
+
   setTimeout(() => {
     navigate("/login");
   }, 5000);
-
   return (
-    <div className="mainContainer">
+    <div className={style.SplashMain}>
       {currencySymbols.map((symbol, index) => (
-        <p className="splash-text2" key={index}>
-          {symbol}
-        </p>
-      ))}
-      {currencySymbols.map((symbol, index) => (
-        <p className="splash-text" key={index}>
-          {symbol}
-        </p>
-      ))}
-      {currencySymbols.map((symbol, index) => (
-        <p className="splash-text2" key={index}>
-          {symbol}
-        </p>
-      ))}
-      {currencySymbols.map((symbol, index) => (
-        <p className="splash-text" key={index}>
-          {symbol}
-        </p>
-      ))}
-      {currencySymbols.map((symbol, index) => (
-        <p className="splash-text2" key={index}>
-          {symbol}
-        </p>
-      ))}{" "}
-      {currencySymbols.map((symbol, index) => (
-        <p className="splash-text" key={index}>
-          {symbol}
-        </p>
-      ))}{" "}
-      {currencySymbols.map((symbol, index) => (
-        <p className="splash-text2" key={index}>
-          {symbol}
-        </p>
-      ))}{" "}
-      {currencySymbols.map((symbol, index) => (
-        <p className="splash-text" key={index}>
-          {symbol}
-        </p>
-      ))}{" "}
-      {currencySymbols.map((symbol, index) => (
-        <p className="splash-text2" key={index}>
-          {symbol}
-        </p>
-      ))}{" "}
-      {currencySymbols.map((symbol, index) => (
-        <p className="splash-text" key={index}>
-          {symbol}
-        </p>
-      ))}{" "}
-      {currencySymbols.map((symbol, index) => (
-        <p className="splash-text2" key={index}>
-          {symbol}
-        </p>
-      ))}{" "}
-      {currencySymbols.map((symbol, index) => (
-        <p className="splash-text" key={index}>
-          {symbol}
-        </p>
-      ))}{" "}
-      {currencySymbols.map((symbol, index) => (
-        <p className="splash-text2" key={index}>
-          {symbol}
-        </p>
-      ))}{" "}
-      {currencySymbols.map((symbol, index) => (
-        <p className="splash-text" key={index}>
-          {symbol}
-        </p>
-      ))}{" "}
-      {currencySymbols.map((symbol, index) => (
-        <p className="splash-text2" key={index}>
-          {symbol}
-        </p>
-      ))}{" "}
-      {currencySymbols.map((symbol, index) => (
-        <p className="splash-text" key={index}>
-          {symbol}
-        </p>
-      ))}{" "}
-      {currencySymbols.map((symbol, index) => (
-        <p className="splash-text2" key={index}>
-          {symbol}
-        </p>
-      ))}{" "}
-      {currencySymbols.map((symbol, index) => (
-        <p className="splash-text" key={index}>
-          {symbol}
-        </p>
-      ))}{" "}
-      {currencySymbols.map((symbol, index) => (
-        <p className="splash-text2" key={index}>
+        <p
+          key={index}
+          className={style.symbol}
+          style={{
+            animationDelay: `${index * 0.2}s`,
+            top: `${(index % 10) * 10}%`, // Adjusts position for every 5th symbol
+            left: `${(index % 5) * 20 + 10}%`, // Adjusts position for every 5th symbol with an offset
+          }}
+        >
           {symbol}
         </p>
       ))}

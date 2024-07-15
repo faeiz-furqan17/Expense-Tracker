@@ -11,8 +11,6 @@ function Layout() {
     <>
       <Navbar />
 
-      <List />
-
       <Outlet />
 
       <Footer />

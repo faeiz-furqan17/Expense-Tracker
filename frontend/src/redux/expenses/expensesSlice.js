@@ -42,12 +42,15 @@ const expensesSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(showExpenses.pending, (state) => {
+      debugger;
       state.loading = true;
     });
     builder.addCase(showExpenses.fulfilled, (state, action) => {
+      debugger;
       state.expenses = [...action.payload];
     });
     builder.addCase(showExpenses.rejected, (state, action) => {
+      debugger;
       state.error = action.error.message;
       console.log("Error fetching expenses: ", action.error.message);
     });
@@ -78,7 +81,8 @@ const expensesSlice = createSlice({
     builder.addCase(addExpenses.fulfilled, (state, action) => {
       state.loading = false;
       state.expenses.push({
-        ...action.payload.data,
+        id: action.payload.id,
+        ...action.payload.result,
       });
 
       state.expenses.sort((a, b) => new Date(a.date) - new Date(b.date));
@@ -89,9 +93,11 @@ const expensesSlice = createSlice({
       console.log("Error adding expense: ", action.error.message);
     });
     builder.addCase(updateExpenses.pending, (state) => {
+      debugger;
       state.loading = true;
     });
     builder.addCase(updateExpenses.fulfilled, (state, action) => {
+      debugger;
       state.loading = false;
       const expenseid = action.meta.arg.id;
       const updatedExpense = action.meta.arg;
@@ -108,18 +114,22 @@ const expensesSlice = createSlice({
       state.expenses.sort((a, b) => new Date(a.date) - new Date(b.date));
     });
     builder.addCase(updateExpenses.rejected, (state, action) => {
+      debugger;
       state.loading = false;
       state.error = action.error.message;
       console.log("Error updating expense: ", action.error.message);
     });
     builder.addCase(getSingleExpense.pending, (state) => {
+      debugger;
       state.loading = true;
     });
     builder.addCase(getSingleExpense.fulfilled, (state, action) => {
+      debugger;
       state.loading = false;
       state.singleExpense = action.payload;
     });
     builder.addCase(getSingleExpense.rejected, (state, action) => {
+      debugger;
       state.loading = false;
       state.error = action.error.message;
       console.log("Error fetching single expense: ", action.error.message);

@@ -17,8 +17,6 @@ const BASE_URL = "http://localhost:3000/api";
 //     }
 //   });
 // };
-debugger;
-
 export const getExpensesList = async (signal) => {
   debugger;
   try {
@@ -66,13 +64,12 @@ export const addExpense = async (expenseData) => {
   });
   return new Promise((resolve, reject) => {
     if (response.status === 200) {
-      resolve(response.data.result);
+      resolve(response.data);
     } else {
       reject("Something went wrong");
     }
   });
 };
-debugger;
 // Update an existing expense by ID
 export const updateExpense = async (expenseData) => {
   debugger;
@@ -90,8 +87,6 @@ export const updateExpense = async (expenseData) => {
   });
 };
 // get a single expense
-debugger;
-
 export const getExpenseById = async (id) => {
   debugger;
   const response = await apiCalls({

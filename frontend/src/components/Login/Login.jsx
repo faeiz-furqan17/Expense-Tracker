@@ -18,7 +18,7 @@ function Login({ login }) {
     e.preventDefault();
     if (loginData.username && loginData.password === "admin") {
       login();
-      navigate("/dashboard");
+      navigate("/summary");
       setLoginData({
         username: "",
         password: "",
@@ -39,6 +39,7 @@ function Login({ login }) {
       <AccountCircleTwoToneIcon
         sx={{
           fontSize: "400px",
+          color: " #d7e360",
         }}
       />
       <form onSubmit={handleSubmit}>
@@ -75,7 +76,11 @@ function Login({ login }) {
             Login
           </Button>
         </div>
-        <p>
+        <p
+          style={{
+            color: "white",
+          }}
+        >
           Dont have an account? <a href="/signup">Signup!</a>
         </p>
       </form>
